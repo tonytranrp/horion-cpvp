@@ -1,0 +1,121 @@
+// MSVC doesn't like pragma once in pch (I think)
+#ifndef PCH_H
+#define PCH_H
+
+// Windows
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <windows.storage.h>
+#include <wrl.h>
+
+// Standard library
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <chrono>
+#include <ctime>
+#include <cstdarg>
+#include <deque>
+#include <filesystem>
+#include <fstream>
+#include <functional>
+#include <intrin.h>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <map>
+#include <math.h>
+#include <memory>
+#include <mutex>
+#include <numeric>
+#include <optional>
+#include <Psapi.h>
+#include <queue>
+#include <random>
+#include <regex>
+#include <set>
+#include <shared_mutex>
+#include <sstream>
+#include <stdint.h>
+#include <string>
+#include <sysinfoapi.h>
+#include <thread>
+#include <typeinfo>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+#include <wchar.h>
+
+// Libraries
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_relational.hpp>
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/constants.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/trigonometric.hpp>
+#include "Utils/gifdec.h"
+#include "Utils/Json.hpp"
+#include "Utils/xorstr.hpp"
+#include "Memory/MinHook.h"
+#include "Utils/endianness.h"
+#include "Utils/uuid_v4.h"
+
+//Utils
+#include "Memory/GameData.h"
+#include "Utils/HMath.h"
+#include "Utils/keys.h"
+#include "Utils/Logger.h"
+#include "Utils/MoveUtils.h"
+#include "Utils/svpng.h"
+#include "Utils/Target.h"
+#include "Utils/TextFormat.h"
+#include "Utils/TimerUtils.h"
+#include "Utils/Utils.h"
+
+//SDK
+#include "SDK/Abilities.h"
+#include "SDK/Attribute.h"
+#include "SDK/ActorFlags.h"
+#include "SDK/Biome.h"
+#include "SDK/Block.h"
+#include "SDK/BlockActor.h"
+#include "SDK/BlockLegacy.h"
+#include "SDK/BlockSource.h"
+#include "SDK/Camera.h"
+#include "SDK/ChestBlockActor.h"
+#include "SDK/ClientInputCallbacks.h"
+#include "SDK/ClientInstance.h"
+#include "SDK/ComplexInventoryTransaction.h"
+#include "SDK/ConnectionRequest.h"
+#include "SDK/Entity.h"
+#include "SDK/EntityList.h"
+#include "SDK/GameMode.h"
+#include "SDK/GameSettingsInput.h"
+#include "SDK/GuiData.h"
+#include "SDK/HashedString.h"
+#include "SDK/HIDController.h"
+#include "SDK/Inventory.h"
+#include "SDK/InventoryTransaction.h"
+#include "SDK/Item.h"
+#include "SDK/Level.h"
+#include "SDK/LevelSoundEvent.h"
+#include "SDK/LoopbackPacketSender.h"
+#include "SDK/MatrixStack.h"
+#include "SDK/mce.h"
+#include "SDK/Minecraft.h"
+#include "SDK/MinecraftGame.h"
+#include "SDK/MinecraftJson.h"
+#include "SDK/MinecraftUIRenderContext.h"
+#include "SDK/Mojangson.h"
+#include "SDK/MojangsonToken.h"
+#include "SDK/MoveInputHandler.h"
+#include "SDK/Option.h"
+#include "SDK/Packet.h"
+#include "SDK/RakNetConnector.h"
+#include "SDK/ScreenContext.h"
+#include "SDK/Tag.h"
+#include "SDK/Tessellator.h"
+#include "SDK/UIScene.h"
+
+#endif

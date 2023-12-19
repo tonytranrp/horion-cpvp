@@ -1,0 +1,82 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RCDATA
+//
+
+BONE_DATA             RCDATA                  "Assets\\bone.gif"
+HORION_BANNER_DATA             RCDATA                  "Assets\\HorionBanner.png"
+BOX_DATA             RCDATA                  "Assets\\Box.png"
+CHECKBOX_DATA           RCDATA                  "Assets\\CheckBox.png"
+VINTAGE_DATA            RCDATA                  "Assets\\Vintage.png"
+VISIBILITY_OFF_DATA             RCDATA                  "Assets\\VisibilityOff.png"
+VISIBILITY_ON_DATA             RCDATA                  "Assets\\VisibilityOn.png"
+VROY_DATA             RCDATA                  "Assets\\Vroy.png"
+DVD_DATA             RCDATA                  "Assets\\DVD.png"
+CHECK_DATA             RCDATA                  "Assets\\Check.png"
+CROSS_DATA             RCDATA                  "Assets\\Cross.png"
+NOTIF_DATA             RCDATA                  "Assets\\Notif.png"
+WARN_DATA             RCDATA                  "Assets\\Warn.png"
+LOGO_DATA             RCDATA                  "Assets\\Logo.png"
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,656 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{499784D2-7EA3-4CBE-BD93-EC0DBBC42FCD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <SpectreMitigation>false</SpectreMitigation>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;D:\ProgrammeX\Dxx\Lib\x64;$(ProjectDir)minhook;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\ProgrammeX\Dxx\Include;$(ProjectDir)include\glm;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\lib\x64;$(ProjectDir)minhook;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)include\glm</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>NOMINMAX;HORION_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>PCH.h</ForcedIncludeFiles>
+      <Optimization>Disabled</Optimization>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link />
+    <Link>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)MinHook\$(Configuration)\</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>_WINDLL;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>PCH.h</ForcedIncludeFiles>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)MinHook\$(Configuration)\</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include=".clang-format" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Horion\Command\CommandMgr.cpp" />
+    <ClCompile Include="Horion\Command\Commands\BindCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\BlockESPCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\BruhCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\CommandBlockExploitCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ConfigCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\CoordsCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\DamageCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\DeviceIDCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\DupeCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\EjectCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\EmoteCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\EnchantCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\FriendListCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\GameModeCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\GiveCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\GodPotionCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\HelpCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\HideCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ICommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ItemIDCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\KitCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\LocateCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ModulesCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\NameSpoofCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\NbtCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\NbtPresetCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\PanicCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\PathCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\PlayerTeleportCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\RelativeTeleportCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\RenameCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\RepairCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SayCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SeedCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ServerCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SetLoreCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SetOffhandCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SetprefixCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SignEditCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\SpammerCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\TeleportCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\TestCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\ToggleCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\TopCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\UnbindCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\UnlockAchievementsCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\WaypointCommand.cpp" />
+    <ClCompile Include="Horion\Command\Commands\XpCommand.cpp" />
+    <ClCompile Include="Horion\Config\ConfigManager.cpp" />
+    <ClCompile Include="Horion\DrawUtils.cpp" />
+    <ClCompile Include="Horion\FriendList\FriendList.cpp" />
+    <ClCompile Include="Horion\Loader.cpp" />
+    <ClCompile Include="Horion\Menu\ClickGui.cpp" />
+    <ClCompile Include="Horion\Menu\NotifMgr.cpp" />
+    <ClCompile Include="Horion\Menu\TabGui.cpp" />
+    <ClCompile Include="Horion\Module\ModuleManager.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Aimbot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\AntiCrystal.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\AutoClicker.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\AutoPot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\BowAimbot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\BowSpam.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Criticals.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\CrystalAura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\GhostHand.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Hitbox.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\InfiniteAura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Killaura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Reach.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Targethud.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\Teams.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Combat\TriggerBot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\ArmorHud.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\Arraylist.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\ClickGuiMod.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\Compass.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\HudEditor.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\HudModule.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\InventoryViewer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\Keystrokes.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\Radar.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\TabGuiMod.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Gui\Watermark.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Chat.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Crasher.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Derp.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\DeviceIDSpoofer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Disabler.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\EditionFaker.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Freecam.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\InvLogger.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\MurderTool.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\NoPacket.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\NoPaintingCrash.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\PacketLogger.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\ShulkerNesting.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\SkinStealer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Spammer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\TestModule.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Misc\Timer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Module.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\AirJump.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\AntiVoid.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\AutoSneak.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\AutoSprint.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Bhop.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\ElytraFly.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\FastLadder.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\FastStop.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Fly.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\FollowPathModule.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Glide.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\HighJump.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\InventoryMove.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\JavaSneak.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Jesus.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Jetpack.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\NoClip.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\NoFall.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\NoSlowDown.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Phase.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Speed.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Spider.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Step.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\ToggleSneak.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\Velocity.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Movement\VHop.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AntiBot.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AntiEffect.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AntiImmobile.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AutoArmor.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AutoDisconnect.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AutoMine.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AutoRespawn.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\AutoTool.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\Blink.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\BlockReach.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\ClickTP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\DeathPosition.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\FastEat.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\FastThrow.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\HealthCheck.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\InventoryCleaner.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\JavaInv.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\MidClick.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\Nbt.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\NoFriends.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\NoSwing.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\Offhand.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\StackableItem.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\BlockESP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\BlockOutline.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\BoneESP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Breadcrumbs.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\CameraNoClip.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\ChestESP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\CustomSky.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\DVDLogo.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\EntityDespawner.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\ESP.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Freelook.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\FullBright.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Minimap.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\NameTags.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\NoHurtcam.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\NoRender.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Swing.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\TimeChanger.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Tracer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\TrueSight.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\ViewModel.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Waypoints.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Visual\Zoom.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\AutoEat.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\AutoFish.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\AutoGapple.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\AutoMove.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\ChestAura.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\ChestStealer.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\EntityFly.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\EntityJesus.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\EntitySpeed.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\Fucker.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\InstaBreak.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\Nuker.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\Scaffold.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\SignEdit.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\Surround.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\SwingSounds.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\Tower.cpp" />
+    <ClCompile Include="Horion\Module\Modules\World\Xray.cpp" />
+    <ClCompile Include="Horion\path\goals\JoeGoal.cpp" />
+    <ClCompile Include="Horion\path\goals\JoeGoalXYZ.cpp" />
+    <ClCompile Include="Horion\path\goals\JoeGoalXZ.cpp" />
+    <ClCompile Include="Horion\path\goals\JoeGoalY.cpp" />
+    <ClCompile Include="Horion\path\JoeConstants.cpp" />
+    <ClCompile Include="Horion\path\JoeMovementController.cpp" />
+    <ClCompile Include="Horion\path\JoePath.cpp" />
+    <ClCompile Include="Horion\path\JoePathFinder.cpp" />
+    <ClCompile Include="Horion\path\JoeSegment.cpp" />
+    <ClCompile Include="Memory\GameData.cpp" />
+    <ClCompile Include="Memory\Hooks.cpp" />
+    <ClCompile Include="PCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SDK\BinaryStream.cpp" />
+    <ClCompile Include="SDK\Biome.cpp" />
+    <ClCompile Include="SDK\BlockLegacy.cpp" />
+    <ClCompile Include="SDK\BlockSource.cpp" />
+    <ClCompile Include="SDK\Camera.cpp" />
+    <ClCompile Include="SDK\ChestBlockActor.cpp" />
+    <ClCompile Include="SDK\ClientInputCallbacks.cpp" />
+    <ClCompile Include="SDK\ClientInstance.cpp" />
+    <ClCompile Include="SDK\ComplexInventoryTransaction.cpp" />
+    <ClCompile Include="SDK\ConnectionRequest.cpp" />
+    <ClCompile Include="SDK\Entity.cpp" />
+    <ClCompile Include="SDK\GameMode.cpp" />
+    <ClCompile Include="SDK\GuiData.cpp" />
+    <ClCompile Include="SDK\Inventory.cpp" />
+    <ClCompile Include="SDK\InventoryTransaction.cpp" />
+    <ClCompile Include="SDK\Item.cpp" />
+    <ClCompile Include="SDK\Level.cpp" />
+    <ClCompile Include="SDK\MatrixStack.cpp" />
+    <ClCompile Include="SDK\MinecraftJson.cpp" />
+    <ClCompile Include="SDK\MinecraftUIRenderContext.cpp" />
+    <ClCompile Include="SDK\Mojangson.cpp" />
+    <ClCompile Include="SDK\MoveInputHandler.cpp" />
+    <ClCompile Include="SDK\NetworkHandler.cpp" />
+    <ClCompile Include="SDK\Packet.cpp" />
+    <ClCompile Include="SDK\ScreenContext.cpp" />
+    <ClCompile Include="SDK\Tag.cpp" />
+    <ClCompile Include="SDK\Tessellator.cpp" />
+    <ClCompile Include="SDK\UIScene.cpp" />
+    <ClCompile Include="Horion\Module\Modules\Player\Damage.cpp" />
+    <ClCompile Include="Utils\gifdec.cpp" />
+    <ClCompile Include="Utils\Logger.cpp" />
+    <ClCompile Include="Utils\MoveUtils.cpp" />
+    <ClCompile Include="Utils\Target.cpp" />
+    <ClCompile Include="Utils\TextFormat.cpp" />
+    <ClCompile Include="Utils\TimerUtils.cpp" />
+    <ClCompile Include="Utils\Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Horion\Module\Modules\Player\Damage.h" />
+    <ClInclude Include="Horion\Command\CommandMgr.h" />
+    <ClInclude Include="Horion\Command\Commands\BindCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\BlockESPCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\BruhCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\CommandBlockExploitCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ConfigCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\CoordsCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\DamageCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\DeviceIDCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\DupeCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\EjectCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\EmoteCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\EnchantCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\FriendListCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\GameModeCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\GiveCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\GodPotionCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\HelpCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\HideCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ICommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ItemIDCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\KitCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\LocateCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ModulesCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\NameSpoofCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\NbtCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\NbtPresetCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\PanicCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\PathCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\PlayerTeleportCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\RelativeTeleportCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\RenameCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\RepairCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SayCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SeedCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ServerCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SetLoreCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SetOffhandCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SetprefixCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SignEditCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\SpammerCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\TeleportCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\TestCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\ToggleCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\TopCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\UnbindCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\UnlockAchievementsCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\WaypointCommand.h" />
+    <ClInclude Include="Horion\Command\Commands\XpCommand.h" />
+    <ClInclude Include="Horion\Config\ConfigManager.h" />
+    <ClInclude Include="Horion\DrawUtils.h" />
+    <ClInclude Include="Horion\FriendList\FriendList.h" />
+    <ClInclude Include="Horion\Loader.h" />
+    <ClInclude Include="Horion\Menu\ClickGui.h" />
+    <ClInclude Include="Horion\Menu\NotifMgr.h" />
+    <ClInclude Include="Horion\Menu\TabGui.h" />
+    <ClInclude Include="Horion\Module\ModuleManager.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Aimbot.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\AntiCrystal.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\AutoClicker.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\AutoPot.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\BowAimbot.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\BowSpam.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Criticals.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\CrystalAura.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\GhostHand.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Hitbox.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\InfiniteAura.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Killaura.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Reach.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Targethud.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\Teams.h" />
+    <ClInclude Include="Horion\Module\Modules\Combat\TriggerBot.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\ArmorHud.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\Arraylist.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\ClickGuiMod.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\Compass.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\HudEditor.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\HudModule.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\InventoryViewer.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\Keystrokes.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\Radar.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\TabGuiMod.h" />
+    <ClInclude Include="Horion\Module\Modules\Gui\Watermark.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Chat.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Crasher.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Derp.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\DeviceIDSpoofer.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Disabler.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\EditionFaker.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Freecam.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\InvLogger.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\MurderTool.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\NoPacket.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\NoPaintingCrash.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\PacketLogger.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\ShulkerNesting.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\SkinStealer.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Spammer.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\TestModule.h" />
+    <ClInclude Include="Horion\Module\Modules\Misc\Timer.h" />
+    <ClInclude Include="Horion\Module\Modules\Module.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\AirJump.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\AntiVoid.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\AutoSneak.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\AutoSprint.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Bhop.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\ElytraFly.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\FastLadder.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\FastStop.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Fly.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\FollowPathModule.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Glide.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\HighJump.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\InventoryMove.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\JavaSneak.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Jesus.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Jetpack.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\NoClip.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\NoFall.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\NoSlowDown.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Phase.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Speed.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Spider.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Step.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\ToggleSneak.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\Velocity.h" />
+    <ClInclude Include="Horion\Module\Modules\Movement\VHop.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AntiBot.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AntiEffect.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AntiImmobile.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AutoArmor.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AutoDisconnect.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AutoMine.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AutoRespawn.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\AutoTool.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\Blink.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\BlockReach.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\ClickTP.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\DeathPosition.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\FastEat.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\FastThrow.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\HealthCheck.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\InventoryCleaner.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\JavaInv.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\MidClick.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\Nbt.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\NoFriends.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\NoSwing.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\Offhand.h" />
+    <ClInclude Include="Horion\Module\Modules\Player\StackableItem.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\BlockESP.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\BlockOutline.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\BoneESP.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Breadcrumbs.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\CameraNoClip.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\ChestESP.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\CustomSky.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\DVDLogo.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\EntityDespawner.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\ESP.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Freelook.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\FullBright.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Minimap.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\NameTags.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\NoHurtcam.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\NoRender.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Swing.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\TimeChanger.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Tracer.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\TrueSight.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\ViewModel.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Waypoints.h" />
+    <ClInclude Include="Horion\Module\Modules\Visual\Zoom.h" />
+    <ClInclude Include="Horion\Module\Modules\World\AutoEat.h" />
+    <ClInclude Include="Horion\Module\Modules\World\AutoFish.h" />
+    <ClInclude Include="Horion\Module\Modules\World\AutoGapple.h" />
+    <ClInclude Include="Horion\Module\Modules\World\AutoMove.h" />
+    <ClInclude Include="Horion\Module\Modules\World\ChestAura.h" />
+    <ClInclude Include="Horion\Module\Modules\World\ChestStealer.h" />
+    <ClInclude Include="Horion\Module\Modules\World\EntityFly.h" />
+    <ClInclude Include="Horion\Module\Modules\World\EntityJesus.h" />
+    <ClInclude Include="Horion\Module\Modules\World\EntitySpeed.h" />
+    <ClInclude Include="Horion\Module\Modules\World\Fucker.h" />
+    <ClInclude Include="Horion\Module\Modules\World\InstaBreak.h" />
+    <ClInclude Include="Horion\Module\Modules\World\Nuker.h" />
+    <ClInclude Include="Horion\Module\Modules\World\Scaffold.h" />
+    <ClInclude Include="Horion\Module\Modules\World\SignEdit.h" />
+    <ClInclude Include="Horion\Module\Modules\World\Surround.h" />
+    <ClInclude Include="Horion\Module\Modules\World\SwingSounds.h" />
+    <ClInclude Include="Horion\Module\Modules\World\Tower.h" />
+    <ClInclude Include="Horion\Module\Modules\World\Xray.h" />
+    <ClInclude Include="Horion\path\goals\JoeGoal.h" />
+    <ClInclude Include="Horion\path\goals\JoeGoalXYZ.h" />
+    <ClInclude Include="Horion\path\goals\JoeGoalXZ.h" />
+    <ClInclude Include="Horion\path\goals\JoeGoalY.h" />
+    <ClInclude Include="Horion\path\JoeConstants.h" />
+    <ClInclude Include="Horion\path\JoeMovementController.h" />
+    <ClInclude Include="Horion\path\JoePath.h" />
+    <ClInclude Include="Horion\path\JoePathFinder.h" />
+    <ClInclude Include="Horion\path\JoeSegment.h" />
+    <ClInclude Include="include\atlrx.h" />
+    <ClInclude Include="include\RegExp.h" />
+    <ClInclude Include="include\StringProcess.h" />
+    <ClInclude Include="include\WinHttpClient.h" />
+    <ClInclude Include="Memory\GameData.h" />
+    <ClInclude Include="Memory\Hooks.h" />
+    <ClInclude Include="Memory\MinHook.h" />
+    <ClInclude Include="PCH.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SDK\Abilities.h" />
+    <ClInclude Include="SDK\ActorFlags.h" />
+    <ClInclude Include="SDK\Attribute.h" />
+    <ClInclude Include="SDK\BinaryStream.h" />
+    <ClInclude Include="SDK\Biome.h" />
+    <ClInclude Include="SDK\Block.h" />
+    <ClInclude Include="SDK\BlockActor.h" />
+    <ClInclude Include="SDK\BlockLegacy.h" />
+    <ClInclude Include="SDK\BlockSource.h" />
+    <ClInclude Include="SDK\BuildPlatform.h" />
+    <ClInclude Include="SDK\Camera.h" />
+    <ClInclude Include="SDK\ChestBlockActor.h" />
+    <ClInclude Include="SDK\ClientInputCallbacks.h" />
+    <ClInclude Include="SDK\ClientInstance.h" />
+    <ClInclude Include="SDK\ComplexInventoryTransaction.h" />
+    <ClInclude Include="SDK\ConnectionRequest.h" />
+    <ClInclude Include="SDK\Entity.h" />
+    <ClInclude Include="SDK\EntityList.h" />
+    <ClInclude Include="SDK\GameMode.h" />
+    <ClInclude Include="SDK\GameSettingsInput.h" />
+    <ClInclude Include="SDK\GuiData.h" />
+    <ClInclude Include="SDK\HashedString.h" />
+    <ClInclude Include="SDK\HIDController.h" />
+    <ClInclude Include="SDK\Inventory.h" />
+    <ClInclude Include="SDK\InventoryTransaction.h" />
+    <ClInclude Include="SDK\Item.h" />
+    <ClInclude Include="SDK\Level.h" />
+    <ClInclude Include="SDK\LevelSoundEvent.h" />
+    <ClInclude Include="SDK\LoopbackPacketSender.h" />
+    <ClInclude Include="SDK\MatrixStack.h" />
+    <ClInclude Include="SDK\mce.h" />
+    <ClInclude Include="SDK\Minecraft.h" />
+    <ClInclude Include="SDK\MinecraftGame.h" />
+    <ClInclude Include="SDK\MinecraftJson.h" />
+    <ClInclude Include="SDK\MinecraftUIRenderContext.h" />
+    <ClInclude Include="SDK\Mojangson.h" />
+    <ClInclude Include="SDK\MojangsonToken.h" />
+    <ClInclude Include="SDK\MoveInputHandler.h" />
+    <ClInclude Include="SDK\NetworkHandler.h" />
+    <ClInclude Include="SDK\Option.h" />
+    <ClInclude Include="SDK\Pack.h" />
+    <ClInclude Include="SDK\Packet.h" />
+    <ClInclude Include="SDK\PacketIDs.h" />
+    <ClInclude Include="SDK\RakNetConnector.h" />
+    <ClInclude Include="SDK\ScreenContext.h" />
+    <ClInclude Include="SDK\Tag.h" />
+    <ClInclude Include="SDK\Tessellator.h" />
+    <ClInclude Include="SDK\UIScene.h" />
+    <ClInclude Include="Utils\endianness.h" />
+    <ClInclude Include="Utils\gifdec.h" />
+    <ClInclude Include="Utils\HMath.h" />
+    <ClInclude Include="Utils\Json.hpp" />
+    <ClInclude Include="Utils\keys.h" />
+    <ClInclude Include="Utils\Logger.h" />
+    <ClInclude Include="Utils\MoveUtils.h" />
+    <ClInclude Include="Utils\svpng.h" />
+    <ClInclude Include="Utils\Target.h" />
+    <ClInclude Include="Utils\TextFormat.h" />
+    <ClInclude Include="Utils\TimerUtils.h" />
+    <ClInclude Include="Utils\Utils.h" />
+    <ClInclude Include="Utils\uuid_v4.h" />
+    <ClInclude Include="Utils\xorstr.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\bone.gif" />
+    <Image Include="Assets\Box.png" />
+    <Image Include="Assets\Check.png" />
+    <Image Include="Assets\CheckBox.png" />
+    <Image Include="Assets\Cross.png" />
+    <Image Include="Assets\DVD.png" />
+    <Image Include="Assets\HorionBanner.png" />
+    <Image Include="Assets\Logo.png" />
+    <Image Include="Assets\Notif.png" />
+    <Image Include="Assets\Vintage.png" />
+    <Image Include="Assets\VisibilityOff.png" />
+    <Image Include="Assets\VisibilityOn.png" />
+    <Image Include="Assets\Vroy.png" />
+    <Image Include="Assets\Warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="MinHook\Debug\libMinHook-x64-v143-mtd.lib" />
+    <Library Include="MinHook\Release\libMinHook-x64-v143-mt.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

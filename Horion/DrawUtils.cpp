@@ -284,6 +284,30 @@ void DrawUtils::drawPolygonOutline(const Vec2& center, const Vec2& size, int num
 	Tessellator2D->renderMeshImmediately(ScreenContext2D, uiMaterial);
 }
 
+void DrawUtils::drawTextInWorld(std::string* textToSay, const Vec3& location, float tsize, Vec3i tColor, Vec3i bgColor) {
+	Vec2 textPos;
+	Vec4 rectPos;
+
+	float textWidth = getTextWidth(textToSay, tsize);
+	
+	float textHeight = DrawUtils::getFont(DesiredUi::HUD)->getLineHeight() * tsize;
+	Vec3 actualLocation = location.add(0.5f);
+
+	if (refdef->OWorldToScreen(origin, actualLocation, textPos, fov, screenSize)) {
+		textPos.y -= textHeight;
+		textPos.x -= textWidth / 2.f;
+		rectPos.x = textPos.x - 1.f * tsize;
+		rectPos.y = textPos.y - 1.f * tsize;
+		rectPos.z = textPos.x + textWidth + 1.f * tsize;
+		rectPos.w = textPos.y + textHeight + 2.f * tsize;
+		Vec4 subRectPos = rectPos;
+		subRectPos.y = subRectPos.w - 1.f * tsize;
+		fillRect(rectPos, MC_Color(bgColor.x, bgColor.y, bgColor.z), 5.0f);
+
+		drawText(textPos, textToSay, MC_Color(tColor.x, tColor.y, tColor.z), tsize);
+	}
+}
+
 void DrawUtils::drawRoundRect(Vec4 pos, CornerRadius radius, MC_Color color, float step) {
 	DrawUtils::SetColor(color.r, color.g, color.b, color.a);
 	float length = pos.z - pos.x;

@@ -188,7 +188,7 @@ public:
 	static void drawImage(const std::string& filePath, Vec2& ImagePos, Vec2& ImageDimension, Vec2& uvPos, Vec2& uvSize, bool external = false);
 	static void drawImageFromResource(int resource, const std::string& imageName, Vec2 const& imagePos, Vec2 const& ImageDimension, Vec2 const& uvPos, Vec2 const& uvSize);
 	static void drawImageFromTexturePtr(std::shared_ptr<TexturePtr> texture, Vec2 const& imagePos, Vec2 const& ImageDimension, Vec2 const& uvPos, Vec2 const& uvSize);
-	
+	static void drawTextInWorld(std::string* textToSay, const Vec3& location, float tsize, Vec3i tColor, Vec3i bgColor);
 	// Must delete the TexturePtr yourself
 	static std::shared_ptr<TexturePtr> rawDataToTexturePtr(const unsigned char* data, int width, int height, bool hasAlpha, const std::string& name);
 	static std::shared_ptr<TexturePtr> resourceToTexturePtr(int resource, const std::string& name);
@@ -215,7 +215,7 @@ public:
 		amount = std::min(1.f, std::max(0.f, amount));
 		return MC_Color(lerpInt((int)(color1.r * 255.f), (int)(color2.r * 255.f), (int)amount), lerpInt((int)(color1.g * 255.f), (int)(color2.g * 255.f), (int)amount), lerpInt((int)(color1.b * 255.f), (int)(color2.b * 255.f), (int)amount), lerpInt((int)(color1.a * 255.f), (int)(color2.a * 255.f), (int)amount));
 	}
-
+	
 	inline static MC_Color lerpColors(int speed, int index, MC_Color start, MC_Color end) {
 		int angle = (int)(((TimerUtils::getCurrentMs()) / speed + (index * 50)) % 360);
 		return DrawUtils::lerpColor(start, end, ((angle >= 180 ? 360 - angle : angle) * 2) / 360.0f);

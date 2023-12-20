@@ -267,7 +267,13 @@ struct Vec3 {
 	Vec3 sub(const Vec3 &o) const {
 		return Vec3(x - o.x, y - o.y, z - o.z);
 	}
+	bool operator>=(const Vec3 &rhs) const {
+		return x >= rhs.x && y >= rhs.y && z >= rhs.z;
+	}
 
+	bool operator<=(const Vec3 &rhs) const {
+		return x <= rhs.x && y <= rhs.y && z <= rhs.z;
+	}
 	float squaredlen() const { return x * x + y * y + z * z; }
 	float squaredxzlen() const { return x * x + z * z; }
 
@@ -643,7 +649,21 @@ struct AABB {
 		this->lower = lower;
 		this->upper = {lower.x + width, lower.y + height, lower.z + width};
 	}
+	bool contains(const AABB &other) const {
+		if (other.lower.x < lower.x || other.upper.x > upper.x)
+			return false;
 
+		if (other.lower.y < lower.y || other.upper.y > upper.y)
+			return false;
+
+		if (other.lower.z < lower.z || other.upper.z > upper.z)
+			return false;
+
+		return true;
+	}
+	bool contains(const Vec3 &point) const {
+		return point >= lower && point <= upper;
+	}
 	inline bool operator==(const AABB &rhs) const {
 		return lower == rhs.lower && upper == rhs.upper;
 	}

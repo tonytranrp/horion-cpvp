@@ -1,5 +1,7 @@
 #include "BlockESP.h"
 
+#include <set>
+
 BlockESP::BlockESP() : IModule(0, Category::VISUAL, "Highlight blocks of choice.") {
 	registerIntSetting("Update Delay", &tickDelay, tickDelay, 0, 100);
 	registerIntSetting("Max Block Per Type", &maxBlockPerType, maxBlockPerType, 1, 4096);

@@ -1774,66 +1774,60 @@ void ClickGui::onKeyUpdate(int key, bool isDown) {
 	}
 }
 using json = nlohmann::json;
+#include <unordered_map>
+
+
+
 void ClickGui::onLoadConfig(void* confVoid) {
 	savedWindowSettings.clear();
 	windowMap.clear();
+
 	json* conf = reinterpret_cast<json*>(confVoid);
 	if (conf->contains("ClickGui")) {
 		auto obj = conf->at("ClickGui");
-		if (obj.is_null())
-			return;
-		for (int i = 0; i <= (int)Category::GUI /*last category*/; i++) {
-			auto catName = ClickGui::catToName((Category)i);
+		for (int i = 0; i <= static_cast<int>(Category::GUI); i++) {
+			auto catName = ClickGui::catToName(static_cast<Category>(i));
 			if (obj.contains(catName)) {
-				auto value = obj.at(catName);
-				if (value.is_null())
-					continue;
 				try {
-					SavedWindowSettings windowSettings = {};
-					windowSettings.name = catName;
-					if (value.contains("pos")) {
-						auto posVal = value.at("pos");
-						if (!posVal.is_null() && posVal.contains("x") && posVal["x"].is_number_float() && posVal.contains("y") && posVal["y"].is_number_float()) {
-							try {
-								windowSettings.pos = {posVal["x"].get<float>(), posVal["y"].get<float>()};
-							} catch (std::exception e) {
-							}
-						}
-					}
-					if (value.contains("isExtended")) {
-						auto isExtVal = value.at("isExtended");
-						if (!isExtVal.is_null() && isExtVal.is_boolean()) {
-							try {
-								windowSettings.isExtended = isExtVal.get<bool>();
-							} catch (std::exception e) {
-							}
-						}
-					}
-					savedWindowSettings[Utils::getCrcHash(catName)] = windowSettings;
-				} catch (std::exception e) {
-					logF("Config Load Error (ClickGuiMenu): %s", e.what());
+												auto& value = obj.at(catName);
+												SavedWindowSettings windowSettings;
+
+												if (value.contains("pos")) {
+													auto& posVal = value.at("pos");
+													if (posVal.is_object() && posVal.contains("x") && posVal.contains("y")) {
+														windowSettings.pos = {posVal["x"].get<float>(), posVal["y"].get<float>()};
+													}
+												}
+
+												if (value.contains("isExtended") && value["isExtended"].is_boolean()) {
+													windowSettings.isExtended = value["isExtended"].get<bool>();
+												}
+
+												windowSettings.name = catName;
+												savedWindowSettings[std::hash<std::string>{}(catName)] = windowSettings;
+				} catch (const std::exception& e) {
+												logF("Config Load Error (ClickGuiMenu): %s", e.what());
 				}
 			}
 		}
 	}
 }
+
 void ClickGui::onSaveConfig(void* confVoid, void* objVoid) {
 	json* conf = reinterpret_cast<json*>(confVoid);
 	json& obj = *(json*)objVoid;
-	// First update our map
+
 	for (const auto& wind : windowMap) {
-		savedWindowSettings[wind.first] = {wind.second->pos, wind.second->isExtended, wind.second->name};
+		savedWindowSettings[std::hash<std::string>{}(wind.second->name)] = {wind.second->pos, wind.second->isExtended, wind.second->name};
 	}
 
-	// Save to json
-	if (conf->contains("ClickGui"))
+	if (conf->contains("ClickGui")) {
 		conf->erase("ClickGui");
+	}
 
 	for (const auto& wind : savedWindowSettings) {
-		json subObj = {};
-		subObj["pos"]["x"] = wind.second.pos.x;
-		subObj["pos"]["y"] = wind.second.pos.y;
-		subObj["isExtended"] = wind.second.isExtended;
-		obj[wind.second.name] = subObj;
+		obj[wind.second.name]["pos"]["x"] = wind.second.pos.x;
+		obj[wind.second.name]["pos"]["y"] = wind.second.pos.y;
+		obj[wind.second.name]["isExtended"] = wind.second.isExtended;
 	}
 }

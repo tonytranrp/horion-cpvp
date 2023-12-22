@@ -9,8 +9,7 @@ public:
 
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
-	void AutoMineBlocks(ClientInputCallbacks* CallBack, Vec3i* Block, int BlockFace, bool ShouldBreak);
-	virtual void onClientInputCallbacksTick(ClientInputCallbacks* Input) override;
+	
 	virtual void onTick(GameMode* gm) override;
 	virtual void onDisable() override;
 };

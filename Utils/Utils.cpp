@@ -1,5 +1,8 @@
 #include "Utils.h"
 
+#include <Psapi.h>
+#include <intsafe.h>
+
 #include "Logger.h"
 #include "HMath.h"
 
@@ -328,71 +331,59 @@ std::wstring Utils::wreadFileContents(std::wstring filePath) {
 uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
 	const char* pattern = szSignature;
 	uintptr_t firstMatch = 0;
-	static const auto rangeStart = (uintptr_t)GetModuleHandleA(szModule);
+
+	static const auto rangeStart = reinterpret_cast<uintptr_t>(GetModuleHandleA(szModule));
 	static MODULEINFO miModInfo;
 	static bool init = false;
+
 	if (!init) {
 		init = true;
-		GetModuleInformation(GetCurrentProcess(), (HMODULE)rangeStart, &miModInfo, sizeof(MODULEINFO));
+		GetModuleInformation(GetCurrentProcess(), reinterpret_cast<HMODULE>(rangeStart), &miModInfo, sizeof(MODULEINFO));
 	}
+
 	static const uintptr_t rangeEnd = rangeStart + miModInfo.SizeOfImage;
 
-	BYTE patByte = GET_BYTE(pattern);
-	const char* oldPat = pattern;
-
-	for (uintptr_t pCur = rangeStart; pCur < rangeEnd; pCur++) {
-		if (!*pattern)
+	for (uintptr_t pCur = rangeStart; pCur < rangeEnd; ++pCur) {
+		if (*pattern == '\0') {
 			return firstMatch;
-
-		while (*(PBYTE)pattern == ' ')
-			pattern++;
-
-		if (!*pattern)
-			return firstMatch;
-
-		if (oldPat != pattern) {
-			oldPat = pattern;
-			if (*(PBYTE)pattern != '\?')
-				patByte = GET_BYTE(pattern);
 		}
 
-		if (*(PBYTE)pattern == '\?' || *(BYTE*)pCur == patByte) {
-			if (!firstMatch)
+		while (*pattern == ' ') {
+			++pattern;
+		}
+
+		if (*pattern == '\0') {
+			return firstMatch;
+		}
+
+		if (*pattern == '?' || *reinterpret_cast<const BYTE*>(pCur) == GET_BYTE(pattern)) {
+			if (!firstMatch) {
 				firstMatch = pCur;
+			}
 
-			if (!pattern[2] || !pattern[1])
+			if (!pattern[2] || !pattern[1]) {
 				return firstMatch;
+			}
 
-			//if (*(PWORD)pattern == '\?\?' || *(PBYTE)pattern != '\?')
-			//pattern += 3;
-
-			//else
 			pattern += 2;
 		} else {
 			pattern = szSignature;
 			firstMatch = 0;
 		}
 	}
+
 #ifdef HORION_DEBUG
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
-#endif
-	const char* sig = szSignature;  // Put sig in here to access it in debugger
-	// This will not get optimized away because we are in debug
-	// Leave this in here to quickly find bad signatures in case of updates
+	const char* sig = szSignature;
 	logF("Signature dead: %s", szSignature);
 	if (false) {
 		const char* msgToTheOverwhelmedDebugger = "SIGNATURE NOT FOUND";
 		__debugbreak();
 	}
+#endif
 
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-#endif
 	return 0u;
 }
+
 
 uintptr_t* Utils::findMultiLvlPtr(uintptr_t baseAddr, std::vector<size_t> offsets) {
 	auto ptr =  baseAddr;

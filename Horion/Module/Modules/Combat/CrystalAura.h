@@ -82,13 +82,13 @@ public:
 	CrystalAura();
 	~CrystalAura();
 
-	bool isPlaceValid(Vec3 location, Entity* atkObj);
-	bool tryRaytrace(Vec3 pos, Vec3 end, BlockSource* region);
+	//bool isPlaceValid(Vec3 location, Entity* atkObj);
+	//bool tryRaytrace(Vec3 pos, Vec3 end, BlockSource* region);
 	// T H E  H O L Y  T R I N I T Y
 	float computeExplosionDamage(Vec3 crystalPos, Entity* target, BlockSource* reg);
 	float getBlastDamageEnchantReduction(ItemStack* armor);
 	// float calculateBlockDensity(C_Entity* targetEntity, Vec3 explosionPosition);
-
+	//std::vector<CrystalPlacements> GetCrystalPlacements(Entity* target, int maxVOff);
 	//std::vector<CrystalPlacements> generateValidPlacements(Entity* target, int yOffset);
 
 	//CrystalPlacements bestPlaceOnPlane(Entity* target, int yOffset);
@@ -96,7 +96,7 @@ public:
 	CrystalPlacements CrystalAuraJTWD(Entity* target);
 
 	//bool getCrystalSpoof();
-	virtual void onLevelRender() override;
+	//virtual void onLevelRender() override;
 	// Inherited via IModule
 	virtual const char* getModuleName() override;
 	virtual void onTick(GameMode* gm) override;

@@ -35,13 +35,13 @@ void Offhand::onTick(GameMode* gm) {
 
 	bool ItemNotInOffhand = false;
 
-	if (current->item == NULL || (*current->item)->itemId != (this->Item.selected == 0 ? 568 : 355))
+	if (current->item == NULL || (*current->item)->itemId != (this->Item.selected == 0 ? 573 : 355))
 		ItemNotInOffhand = true;
 
 	if (ItemNotInOffhand) {
 		for (int i = 0; i < 36; i++) {
 			ItemStack* totem = inv->getItemStack(i);
-			if (totem->item != NULL && (*totem->item)->itemId == (this->Item.selected == 0 ? 568 : 355)) {
+			if (totem->item != NULL && (*totem->item)->itemId == (this->Item.selected == 0 ? 573 : 355)) {
 				if (Mode.selected == 0) {
 					InventoryAction first(0, nullptr, totem, ContainerID::Offhand);
 					manager->addAction(first);
@@ -51,7 +51,7 @@ void Offhand::onTick(GameMode* gm) {
 					for (int i = 0; i < 4 * 9; i++) {
 						ItemStack* stack = Game.getInventory()->getItemStack(i);
 						if (stack && stack->item != NULL)
-							if ((*stack->item)->itemId == (this->Item.selected == 0 ? 568 : 355))
+							if ((*stack->item)->itemId == (this->Item.selected == 0 ? 573 : 355))
 								hastotem = true;
 					}
 					if (hastotem == false) return;
@@ -72,17 +72,17 @@ void Offhand::ScreenController_tick(ScreenController* c) {
 
 	bool ItemNotInOffhand = false;
 
-	if (current->item == NULL || (*current->item)->itemId != (this->Item.selected == 0 ? 568 : 355))
+	if (current->item == NULL || (*current->item)->itemId != (this->Item.selected == 0 ? 573 : 355))
 		ItemNotInOffhand = true;
 	
 	if (Mode.selected == 1 && setOffhand == true && c->isInventory()) {
-		bool hasTotem = !(this->Item.selected == 0 ? 568 : 355);
+		bool hasTotem = !(this->Item.selected == 0 ? 573 : 355);
 		std::vector<int> invItems = {};
 		std::vector<int> hotbarItems = {};
 		for (int i = 9; i < 37; i++) {
 			ItemStack* stack = c->_getItemStack(std::string("inventory_items"), i);
 			if (stack && stack->item != NULL)
-				if ((*stack->item)->itemId == (this->Item.selected == 0 ? 568 : 355))
+				if ((*stack->item)->itemId == (this->Item.selected == 0 ? 573 : 355))
 					if (ItemNotInOffhand) {
 						c->handleAutoPlace(0x7FFFFFFF, "inventory_items", i);
 						break;
@@ -91,7 +91,7 @@ void Offhand::ScreenController_tick(ScreenController* c) {
 		for (int i = 0; i < 9; i++) {
 			ItemStack* stack = c->_getItemStack(std::string("hotbar_items"), i);
 			if (stack && stack->item != NULL)
-				if ((*stack->item)->itemId == (this->Item.selected == 0 ? 568 : 355))
+				if ((*stack->item)->itemId == (this->Item.selected == 0 ? 573 : 355))
 					if (ItemNotInOffhand) {
 						c->handleAutoPlace(0x7FFFFFFF, "hotbar_items", i);
 						break;

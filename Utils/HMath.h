@@ -439,7 +439,12 @@ struct Vec3iHash {
 		return std::hash<int>()(v.x) ^ std::hash<int>()(v.y) ^ std::hash<int>()(v.z);
 	}
 };
-
+struct Vec3Hash {
+	std::size_t operator()(const Vec3 &v) const {
+		std::hash<float> hasher;
+		return hasher(v.x) ^ (hasher(v.y) << 1) ^ (hasher(v.z) << 2);
+	}
+};
 struct Vec4 {
 	union {
 		struct {

@@ -114,29 +114,21 @@ inline bool checkCornerHitboxCollision(const Vec3& block, Entity* ent) {
 }
 
 inline lineResults countBloksAlongLine(Vec3 start, Vec3 end) {
-	Vec3 endf = end.floor();
-	Vec3 startf = start.floor();
+	Vec3 delta = (end.floor().sub(start.floor())).div(200.f);
 	lineResults rtn = {};
 
-	if (endf == startf)
-		return rtn;
+	for (float t = 0.0f; t <= 1.0f; t += 1.0f / 200.0f) {
+		Vec3 point = start.add(delta.mul(200.f * t));
 
-	float dist = startf.dist(endf);
-	Vec3 delta = (endf.sub(startf)).div(dist);
-
-	for (float t = 0.0f; t <= 1.0f; t += dist / 200.0f) {
-		Vec3 point = startf.add(delta.mul(dist * t));
-
-		Vec3i inCoord = point.floor();
-
-		if (!Game.getRegion()->getBlock(inCoord)->toLegacy()->canBeBuiltOver(*Game.getRegion(), inCoord)) {
-			rtn.blockCount += dist / 200.0f;
+		if (!Game.getRegion()->getBlock(point.floor())->toLegacy()->canBeBuiltOver(*Game.getRegion(), point.floor())) {
+			rtn.blockCount += 1.0f / 200.0f;
 			rtn.lastSolidBlock = point;
 		}
 	}
 
 	return rtn;
 }
+
 using getSeenPercent_t = float(__fastcall*)(BlockSource*, Vec3 const&, AABB const&);
 static getSeenPercent_t getSeenPercent = reinterpret_cast<getSeenPercent_t>(FindSignature("40 53 55 41 56 48 81 ec ? ? ? ? 48 8b 05 ? ? ? ? 48 33 c4 48 89 84 24"));
 
@@ -145,11 +137,9 @@ float CrystalAura::computeExplosionDamage(Vec3 crystalPos, Entity* target, Block
 
 	Vec3 pos = target->getPos()->sub(0.f, 1.6f, 0.f);
 	float dist = pos.dist(crystalPos) / explosionRadius;
-	float directImpact = std::max(0.f, 1.f - dist);
-	float exposure = getSeenPercent(reg, crystalPos.add(0.5f, 0.f, 0.5f), target->aabbShape->aabb);
-	float impact = directImpact * exposure;
+	float impact = std::max(0.f, 1.f - dist) * getSeenPercent(reg, crystalPos.add(0.5f, 0.f, 0.5f), target->aabbShape->aabb);
 
-	float damage = (impact * impact * 3.5f + impact * 0.5f * 7.f) * explosionRadius;
+	float damage = (impact * (impact * 3.5f + 0.5f * 7.f)) * explosionRadius;
 
 	int armorPoints = 0, epf = 0;
 	for (int i = 0; i < 4; i++) {
@@ -163,23 +153,14 @@ float CrystalAura::computeExplosionDamage(Vec3 crystalPos, Entity* target, Block
 	float armorReduction = std::min(armorPoints * 0.04f, 0.8f);
 	float enchantReduction = std::min(epf, 25) * 0.04f;
 
-	float finalDamage = damage * (1.f - armorReduction);
-	finalDamage *= 1.f - enchantReduction;
-
-	return std::max(0.f, finalDamage);
+	return std::max(0.f, damage * (1.f - armorReduction) * (1.f - enchantReduction));
 }
-
 
 float CrystalAura::getBlastDamageEnchantReduction(ItemStack* armor) {
-	float epf = 0.f;
-	if (armor->getEnchantValue(0) != 4) {
-		epf += armor->getEnchantValue(0);
-	} else
-		epf += 5;
-	epf += armor->getEnchantValue(3) * 2.f;
-
+	float epf = (armor->getEnchantValue(0) != 4) ? armor->getEnchantValue(0) + 5 : 5 + armor->getEnchantValue(3) * 2.f;
 	return epf;
 }
+
 int64_t getKey(const Vec3& pos) {
 	return (static_cast<int64_t>(pos.x) << 20) | (static_cast<int64_t>(pos.y) << 10) | static_cast<int64_t>(pos.z);
 }

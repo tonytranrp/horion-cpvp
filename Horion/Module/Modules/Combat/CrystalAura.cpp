@@ -15,8 +15,6 @@ CrystalAura::CrystalAura() : IModule(0, Category::COMBAT, "p100 java CA by JohnT
 	registerEnumSetting("Priority", &this->priority, 0);
 	registerFloatSetting("Thru Walls", &this->thruWallsR, this->thruWallsR, 0, 10);
 	registerFloatSetting("Post Walls", &this->postWallsR, this->postWallsR, 0.f, 10.f);
-
-	registerBoolSetting("Safety First!", &this->safetyFirst, this->safetyFirst);
 	registerFloatSetting("Minimum Health", &this->minHealth, this->minHealth, 0.f, 20.f);
 	registerFloatSetting("Max Self Damage", &this->maxSelfDmg, this->maxSelfDmg, 0.f, 20.f);
 	registerFloatSetting("Min Enem Damage", &this->minEnemDmg, this->minEnemDmg, 0.f, 20.f);
@@ -29,15 +27,8 @@ CrystalAura::CrystalAura() : IModule(0, Category::COMBAT, "p100 java CA by JohnT
 	registerFloatSetting("FP MinimumDmg", &this->dmgAtThresh, this->dmgAtThresh, 0.f, 20.f);
 
 	registerBoolSetting("Render", &this->renderPlacing, this->renderPlacing);
-	registerBoolSetting("1.13+ ", &this->noCheckUpper, this->noCheckUpper);
-	registerBoolSetting("Multi-Attack", &this->attackMulti, this->attackMulti);
+	
 
-	switchType = SettingEnum(this)
-					 .addEntry(EnumEntry("none", 0))
-					 .addEntry(EnumEntry("regular", 1))
-					 .addEntry(EnumEntry("switchBack", 2))
-					 .addEntry(EnumEntry("APVPSpoof", 3));
-	registerEnumSetting("Switch Type", &this->switchType, 0);
 }
 
 CrystalAura::~CrystalAura(){};
@@ -175,8 +166,8 @@ CrystalPlacements CrystalAura::CrystalAuraJTWD(Entity* target) {
 		float distToLoc = search.dist(playerPos);
 
 		return !(region->getBlock(search)->toLegacy()->blockId != 0 ||
-				 (!noCheckUpper && region->getBlock(search.add(0, 1, 0))->toLegacy()->blockId != 0) ||
-				 (!noCheckUpper && checkCornerHitboxCollision(search.add(0, 1, 0), target)) ||
+				 (region->getBlock(search.add(0, 1, 0))->toLegacy()->blockId != 0) ||
+				 (checkCornerHitboxCollision(search.add(0, 1, 0), target)) ||
 				 checkCornerHitboxCollision(search, target) ||
 				 (region->getBlock(search.sub(0, 1, 0))->toLegacy()->blockId != 49 &&
 				  region->getBlock(search.sub(0, 1, 0))->toLegacy()->blockId != 7) ||
@@ -254,12 +245,13 @@ void attack(Entity* target) {
 		lp->stateVector->pos,
 		target->stateVector->pos);
 
-	InventoryTransactionPacket transPkt{&complxTransac, true};
+	InventoryTransactionPacket transPkt{&complxTransac, false};
 
-	Game.getLoopbackPacketSender()->sendToServer(&transPkt);
+	Game.getLoopbackPacketSender()->send(&transPkt);
+	
 }
 void CrystalAura::onTick(GameMode* gm) {
-	if (!Game.getLocalPlayer() || !Game.canUseMoveKeys() || (switchType.GetSelectedEntry().GetValue() == 3))
+	if (!Game.getLocalPlayer() || !Game.canUseMoveKeys())
 		return;
 
 	entLocator120.clear();
@@ -281,23 +273,27 @@ void CrystalAura::onTick(GameMode* gm) {
 		CrystalPlacements placeInfo = CrystalAuraJTWD(enemy);
 		if (placeInfo.enemyDmg != -42069) {
 			CJTWDPlaceArr.push_back({placeInfo, enemy});
-			if (!attackMulti)
-				break;
+			
 		}
 	}
 
 	ctr++;
+	Game.forEachEntity([](Entity* ent) {
+		if (ent->getEntityTypeId() == 71) {
+			p = ent;
+			for (int i = 0; i < 3; i++) {
+				attack(ent);
+			}
+
+			// Game.getGameMode()->attack(ent);
+		}
+	});
 	if (ctr >= delay) {
 		Vec3 placeMe = CJTWDPlaceArr.empty() ? Vec3{} : CJTWDPlaceArr[0].CPlacements.toPlace;
 		if (!placeMe.iszero()) {
 			angle = Game.getLocalPlayer()->stateVector->pos.CalcAngle(placeMe);
 			Game.getGameMode()->buildBlock(Vec3i(placeMe).sub(0, 1, 0), 1);
-			Game.forEachEntity([](Entity* ent) {
-				if (ent->getEntityTypeId() == 71) {
-					p = ent;
-					attack(ent);
-				}
-			});
+			
 		}
 
 		ctr = 0;
@@ -306,11 +302,7 @@ void CrystalAura::onTick(GameMode* gm) {
 
 
 void CrystalAura::onDisable() {
-	if (switchType.GetSelectedEntry().GetValue() == 1) {
-		auto supplies = Game.getLocalPlayer()->getSupplies();
-		supplies->selectedHotbarSlot = origSlot;
-		return;
-	}
+	
 }
 
 float roundoff(float value, unsigned char prec) {
@@ -335,13 +327,12 @@ std::string chopOffDigits(const std::string& STUFF, int digits) {
 
 	return toOutput;
 }
-
 void CrystalAura::onPreRender(MinecraftUIRenderContext* renderCtx) {
 	if (!Game.getLocalPlayer() || !Game.getLocalPlayer()->isAlive() || !Game.canUseMoveKeys() || !Game.isInGame() || tgtList.empty() || tgtList[0] == nullptr) {
 		tgtList.clear();
 		return;
 	}
-
+	
 	GuiData* dat = Game.getClientInstance()->getGuiData();
 	Vec2 windowSize = dat->windowSize;
 
@@ -352,7 +343,10 @@ void CrystalAura::onPreRender(MinecraftUIRenderContext* renderCtx) {
 		if (tgtList.empty())
 			return;
 
-		Vec3 placeLoc = indivCrystal.CPlacements.toPlace.lerp(indivCrystal.ent->getPos()->sub(0.f, 1.6f, 0.f).floor(), 0.1f);
+		// Use linear interpolation for smooth transition
+	
+		Vec3 placeLoc = indivCrystal.CPlacements.toPlace;
+
 		float enemyDmg = indivCrystal.CPlacements.enemyDmg;
 		float selfDmg = indivCrystal.CPlacements.selfDmg;
 
@@ -376,20 +370,27 @@ void CrystalAura::onSendPacket(Packet* packet) {
 		InventoryTransactionPacket* itp = reinterpret_cast<InventoryTransactionPacket*>(packet);
 		if (itp->transaction->type == ComplexInventoryTransaction::Type::ItemUseOnActor) {
 			ComplexInventoryTransaction* invComplex = itp->transaction;
-			*(int*)((__int64)(invComplex) + 104) = p->getRuntimeId();
+			for (int i = 0; i < 4; i++) {
+				*(int*)((__int64)(invComplex) + 104) = p->getRuntimeId();
+			}
+			 
+			
 		}
+		
 	}
+	
 	if (packet->getId() == PacketID::MovePlayer) {
 		auto* movePacket = reinterpret_cast<MovePlayerPacket*>(packet);
 		movePacket->pitch = angle.x;
 		movePacket->headYaw = angle.y;
 		movePacket->yaw = angle.y;
 		movePacket->actorRuntimeId = Game.getLocalPlayer()->getRuntimeId();
+		movePacket->clientTick = Game.getLocalPlayer()->ticksAlive;
 	}
 	if (packet->getId() == PacketID::PlayerAuthInput) {
 		auto* authPacket = reinterpret_cast<PlayerAuthInputPacket*>(packet);
 		authPacket->rot = Vec2(angle.x, angle.y);
 		authPacket->headYaw = angle.y;
-		authPacket->clientTick = Game.getLocalPlayer()->getRuntimeId();
+		authPacket->clientTick = Game.getLocalPlayer()->ticksAlive;
 	}
 }

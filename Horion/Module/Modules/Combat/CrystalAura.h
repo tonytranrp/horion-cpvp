@@ -61,23 +61,7 @@ public:
 	float dmgAtThresh = 3.f;    // When fpThreshold is reached, how much damage do the crystals need to deliver
 
 	bool renderPlacing = true;  // Whether to render place position
-	bool noCheckUpper = false;  // Put true if crystals can fit under blocks(endzone 1.13+ Java)
-	bool attackMulti = false;   // Whether player should try to attack more than 1 enemy
-	SettingEnum switchType;     // Type of Switch (regular->switch to crystal at start
-								//                 switchBack->something like citySwitch in surround
-								//                 APVPSpoof->Uses mob equipment as a spoofer[only works on APVP)
-
-
-	/* TODO
-	 *  when APVPSpoof on, stop crystalling on mine
-	 *  fix crashing when there is no crystal and apvpspoof is on
-	 *  steal silent rots from ng
-	 */
-
-	/* TODO (in CrystalBreak):
-	 * anti-weakness
-	 * anti blocking crystals
-	 */
+	
 
 	CrystalAura();
 	~CrystalAura();

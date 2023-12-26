@@ -46,6 +46,7 @@ void Offhand::onTick(GameMode* gm) {
 					InventoryAction first(0, nullptr, totem, ContainerID::Offhand);
 					manager->addAction(first);
 					inv->removeItem(i, i);
+					
 				} else if (Mode.selected == 1) {
 					bool hastotem = false;
 					for (int i = 0; i < 4 * 9; i++) {
